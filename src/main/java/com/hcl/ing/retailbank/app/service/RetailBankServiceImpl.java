@@ -1,17 +1,12 @@
 package com.hcl.ing.retailbank.app.service;
 
-import java.util.List;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import com.hcl.ing.retailbank.app.dto.TransactionResponse;
-import com.hcl.ing.retailbank.app.entity.TransactionHistory;
-import com.hcl.ing.retailbank.app.repository.TransactionHistoryRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -19,6 +14,7 @@ import org.springframework.stereotype.Service;
 import com.hcl.ing.retailbank.app.dto.AccountSummaryResponse;
 import com.hcl.ing.retailbank.app.dto.FundTransferRequest;
 import com.hcl.ing.retailbank.app.dto.FundTransferResponse;
+import com.hcl.ing.retailbank.app.dto.TransactionResponse;
 import com.hcl.ing.retailbank.app.entity.AccountSummary;
 import com.hcl.ing.retailbank.app.entity.TransactionHistory;
 import com.hcl.ing.retailbank.app.repository.AccountSummaryRepository;

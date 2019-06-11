@@ -5,9 +5,7 @@ import java.util.Date;
 
 public class AccountSummaryResponse implements Serializable{
 
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
 	private Long accountNo;
 	private String accountType;
