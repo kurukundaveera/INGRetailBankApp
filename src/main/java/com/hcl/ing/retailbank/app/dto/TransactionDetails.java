@@ -1,52 +1,28 @@
-package com.hcl.ing.retailbank.app.entity;
+package com.hcl.ing.retailbank.app.dto;
 
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import com.hcl.ing.retailbank.app.util.ApiResponse;
 
-@Entity
-@Table(name = "TRANSACTION_HISTORY")
-
-public class TransactionHistory implements Serializable {
-
-	private static final long serialVersionUID = 1L;
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+public class TransactionDetails  implements Serializable {
+	
 	private Long transactionId;
-
-	@Column(name = "FROM_ACCOUNT_NO")
+	
 	private Long fromAccountNo;
-
-	@Column(name = "TO_ACCOUNT_NO")
+	
 	private Long toAccountNo;
-
-	@Column(name = "TRANSACTION_TYPE")
+	
 	private String transactionType;
-
-	@Column(name = "COMMENTS")
+	
 	private String comments;
-
-	@Column(name = "CLOSING_BALANCE")
+	
 	private Double closingBalance;
-
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "CREATE_DT", columnDefinition = "DATETIME")
+	
 	private Date createDt;
-
-	@Override
-	public String toString() {
-		return "TransactionHistory [transactionId=" + transactionId + ", fromAccountNo=" + fromAccountNo
-				+ ", toAccountNo=" + toAccountNo + ", transactionType=" + transactionType + ", comments=" + comments
-				+ ", closingBalance=" + closingBalance + ", createDt=" + createDt + "]";
+	
+	public TransactionDetails() {
+		super();
 	}
 
 	public Long getTransactionId() {
@@ -104,13 +80,8 @@ public class TransactionHistory implements Serializable {
 	public void setCreateDt(Date createDt) {
 		this.createDt = createDt;
 	}
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-
-	public TransactionHistory() {
-		super();
-	}
+	
+	
+	
 
 }
