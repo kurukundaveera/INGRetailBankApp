@@ -26,7 +26,7 @@ public class TransactionHistory implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long transactioId;
+	private Long transactionId;
 	
 	@Column(name="FROM_ACCOUNT_NO")
 	private Long fromAccountNo;
