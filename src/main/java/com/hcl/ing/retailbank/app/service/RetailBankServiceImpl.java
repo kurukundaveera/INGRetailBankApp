@@ -104,6 +104,7 @@ public class RetailBankServiceImpl implements RetailBankService {
 									sourceTransaction.setClosingBalance(fromBalance);
 									sourceTransaction.setComments(request.getComments());
 									sourceTransaction.setCreateDt(new Date());
+									sourceTransaction.setAmount(request.getAmount());
 									sourceTransaction.setTransactionType(TransactionType.DEBIT.toString());
 
 									// destination account transaction
@@ -113,6 +114,7 @@ public class RetailBankServiceImpl implements RetailBankService {
 									destinaitonTransaction.setClosingBalance(toBalance);
 									destinaitonTransaction.setComments(request.getComments());
 									destinaitonTransaction.setCreateDt(new Date());
+									destinaitonTransaction.setAmount(request.getAmount());
 									destinaitonTransaction.setTransactionType(TransactionType.CREDIT.toString());
 
 									transactionHistoryRepository.save(sourceTransaction);
@@ -121,7 +123,7 @@ public class RetailBankServiceImpl implements RetailBankService {
 									response = new FundTransferResponse();
 									response.setStatusCode(200);
 									response.setStatus(SUCCESS);
-									response.setMessage("Your funds transferred successfully ...!");
+									response.setMessage("Your funds "+request.getAmount()+" transferred successfully ...!");
 
 								} else {
 									throw new InSufficientFundsException(

@@ -47,6 +47,9 @@ public class TransactionHistory implements Serializable {
 	@Column(name="CREATE_DT",columnDefinition = "DATETIME")
 	private Date createDt;
 	
+	@Column(name="AMOUNT")
+	private Double amount;
+	
 	
 	public TransactionHistory() {
 		super();
