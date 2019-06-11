@@ -50,8 +50,8 @@ public class RetailBankController {
 	@GetMapping ("/accountSummary/{acccountNumber}")
 	public ResponseEntity<AccountSummaryResponse>  accountSummary(@PathVariable("acccountNumber") Long acccountNumber)
 	{
-		ResponseEntity<AccountSummaryResponse> accountSummaryResponse=retailBankService.accountSummary(acccountNumber);
-		return accountSummaryResponse;
+		return retailBankService.accountSummary(acccountNumber);
+		
 		
 	}	
 	@PostMapping("/login")
