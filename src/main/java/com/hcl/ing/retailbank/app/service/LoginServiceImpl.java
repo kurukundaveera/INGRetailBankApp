@@ -57,7 +57,6 @@ public class LoginServiceImpl implements LoginService {
 					throw new RetailBankServiceException("Invalid credential Exception");
 				}
 
-				if (user.isPresent()) {
 					User user1=user.get();
 
 					AccountSummary accountSummary = accountSummaryRepository.findByUserId(user1.getUserId());
@@ -66,7 +65,7 @@ public class LoginServiceImpl implements LoginService {
 					response.setStatus(SUCCESS);
 					response.setStatusCode(200);
 					response.setAccounNumber(accountSummary.getAccountNo());
-				}
+				
 
 			} else {
 				throw new RetailBankServiceException("Request Not found");
