@@ -58,8 +58,9 @@ public class LoginServiceImpl implements LoginService {
 				}
 
 				if (user.isPresent()) {
+					User user1=user.get();
 
-					AccountSummary accountSummary = accountSummaryRepository.findByUserId(user.get().getUserId());
+					AccountSummary accountSummary = accountSummaryRepository.findByUserId(user1.getUserId());
 
 					response.setMessage("Login successfull");
 					response.setStatus(SUCCESS);
