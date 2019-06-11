@@ -3,6 +3,9 @@ package com.hcl.ing.retailbank.app.service;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 
+import java.util.Date;
+import java.util.Optional;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -10,6 +13,7 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.http.ResponseEntity;
 
+import com.hcl.ing.retailbank.app.dto.AccountSummaryResponse;
 import com.hcl.ing.retailbank.app.dto.FundTransferRequest;
 import com.hcl.ing.retailbank.app.dto.FundTransferResponse;
 import com.hcl.ing.retailbank.app.entity.AccountSummary;
@@ -77,5 +81,33 @@ public class RetailBankServiceImplTest {
 		
 	}
 	
+	@Test
+	public void accountsummary() {
+		
+		Optional<AccountSummary> optional=Optional.empty();
 	
-}
+		AccountSummary accountSummary=new AccountSummary(); 
+		accountSummary.setAccountNo(1L);
+		accountSummary.setAccountType("saving");
+		accountSummary.setClosingBalance(10000.0);
+		Date createDt=new Date();
+		accountSummary.setCreateDt(createDt);
+		
+		optional=Optional.of(accountSummary);
+		
+		when(accountSummaryRepository.findById(1L)).thenReturn(optional);
+		/*
+		 * AccountSummaryResponse accountSummaryResponse=new AccountSummaryResponse();
+		 * accountSummaryResponse.setAccountNo(1L);
+		 * accountSummaryResponse.setAccountType("saving");
+		 * accountSummaryResponse.setClosingBalance(10000.0);
+		 * accountSummaryResponse.setCreateDt(createDt);
+		 */
+		
+		ResponseEntity<AccountSummaryResponse> response=retailBankService.accountSummary(1L);
+		assertEquals(200, response.getStatusCodeValue());
+			
+		}
+		
+		
+	}
