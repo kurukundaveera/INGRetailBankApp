@@ -26,7 +26,7 @@ import io.swagger.annotations.ApiOperation;
 
 @RestController
 @RequestMapping("/retailbank")
-@CrossOrigin
+@CrossOrigin(origins="*")
 public class RetailBankController {
 	
 	private static final Logger logger=LogManager.getLogger(RetailBankController.class);
@@ -38,7 +38,7 @@ public class RetailBankController {
 	private LoginService loginService;	
 	
 	@PostMapping("/fundTransfer")
-	@ApiOperation(notes = "Transfer funds from one account to another account",nickname = "transferFunds", value = "transferring funds")
+	@ApiOperation("Transfer funds from one account to another account")
 	public ResponseEntity<FundTransferResponse> transferFunds(@Valid @RequestBody FundTransferRequest request){
 		logger.info(this.getClass().getName()+" transferFunds is calling ...!");
 		if(request!=null && logger.isDebugEnabled()) {
@@ -55,6 +55,7 @@ public class RetailBankController {
 		
 	}	
 	@PostMapping("/login")
+	@ApiOperation("Login to customer to their account")
 	public LoginResponse login(@RequestBody LoginRequest request) {
 		logger.info("Enter into login controller");
 		return loginService.login(request);
