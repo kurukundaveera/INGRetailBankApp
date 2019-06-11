@@ -1,6 +1,8 @@
-package com.hcl.ing.retailbank.app.util;
+package com.hcl.ing.retailbank.app.dto;
 
 import java.io.Serializable;
+
+import com.hcl.ing.retailbank.app.util.ApiResponse;
 
 import lombok.Data;
 import lombok.Getter;
@@ -9,19 +11,14 @@ import lombok.ToString;
 
 @Data
 @Setter @Getter @ToString
-public class ApiResponse implements Serializable {
+public class FundTransferResponse extends ApiResponse implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
-	private Integer statusCode;
-	
-	private String status;
 	private String message;
 	
-	public ApiResponse() {
+	public FundTransferResponse() {
 		super();
 	}
-
-	
 
 }
