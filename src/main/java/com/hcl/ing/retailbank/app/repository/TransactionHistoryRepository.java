@@ -16,6 +16,7 @@ public interface TransactionHistoryRepository extends JpaRepository<TransactionH
 	
 	@Query(value="select * from transaction_history where from_account_no=?1",nativeQuery=true)
 	public List<TransactionHistory> findAll(Long fromAccNo);
+	
 	 
 	 
 	

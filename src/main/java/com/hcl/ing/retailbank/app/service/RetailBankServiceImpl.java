@@ -14,6 +14,8 @@ import org.springframework.stereotype.Service;
 import com.hcl.ing.retailbank.app.dto.AccountSummaryResponse;
 import com.hcl.ing.retailbank.app.dto.FundTransferRequest;
 import com.hcl.ing.retailbank.app.dto.FundTransferResponse;
+import com.hcl.ing.retailbank.app.dto.TransactionDetails;
+import com.hcl.ing.retailbank.app.dto.TransactionDetailsResponse;
 import com.hcl.ing.retailbank.app.dto.TransactionResponse;
 import com.hcl.ing.retailbank.app.entity.AccountSummary;
 import com.hcl.ing.retailbank.app.entity.TransactionHistory;
@@ -192,4 +194,46 @@ public class RetailBankServiceImpl implements RetailBankService {
 
 	}
 
+	
+	@Override
+	public ResponseEntity<TransactionDetailsResponse> findTransactionById(Long transactionId) {
+		TransactionDetailsResponse response=null;
+		try {
+			if(transactionId!=null) {
+				TransactionHistory transaction = transactionHistoryRepository.findByTransactionId(transactionId);
+				if(transaction!=null) {
+					
+					TransactionDetails details=new TransactionDetails();
+					details.setTransactionId(transaction.getTransactionId());
+					details.setTransactionType(transaction.getTransactionType());
+					details.setToAccountNo(transaction.getToAccountNo());
+					details.setFromAccountNo(transaction.getFromAccountNo());
+					details.setClosingBalance(transaction.getClosingBalance());
+					details.setComments(transaction.getComments());
+					details.setCreateDt(transaction.getCreateDt());
+					
+					response=new TransactionDetailsResponse();
+					response.setTransactionDetails(details);
+					response.setStatusCode(200);
+					response.setStatus(SUCCESS);
+					response.setMessage("Transaction details found");
+				}else {
+					throw new RetailBankServiceException("Transaction is not available");
+				}
+			}else {
+				throw new RetailBankServiceException("Transaction is null");
+			}
+		} catch (Exception e) {
+			response=new TransactionDetailsResponse();
+			response.setTransactionDetails(null);
+			response.setStatusCode(500);
+			response.setStatus(FAILURE);
+			response.setMessage(e.getMessage());
+			logger.error(this.getClass().getName()+" findTransactionById :"+e.getMessage());
+		}
+		return ResponseEntity.status(HttpStatus.CREATED).body(response);
+	}
+	
+	
+	
 }
