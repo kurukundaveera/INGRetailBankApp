@@ -11,15 +11,8 @@ import com.hcl.ing.retailbank.app.entity.TransactionHistory;
 @Repository
 public interface TransactionHistoryRepository extends JpaRepository<TransactionHistory, Long> {
 	
-	//public TransactionHistory findByTempPayeeId(Long tempPayeeId);
 	
-	
-	
-	/*
-	 * // @Query(value="select * from transaction_history where accountNumber=?1",
-	 * nativeQuery=true) List<TransactionHistory> findLastTenTransactionHistory(Long
-	 * accountNumber);
-	 */
+	public TransactionHistory findByTransactionId(Long transactionId);
 	
 	@Query(value="select * from transaction_history where from_account_no=?1",nativeQuery=true)
 	public List<TransactionHistory> findAll(Long fromAccNo);
