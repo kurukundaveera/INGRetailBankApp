@@ -41,10 +41,8 @@ public class RetailBankController {
 	@ApiOperation(notes = "Transfer funds from one account to another account",nickname = "transferFunds", value = "transferring funds")
 	public ResponseEntity<FundTransferResponse> transferFunds(@Valid @RequestBody FundTransferRequest request){
 		logger.info(this.getClass().getName()+" transferFunds is calling ...!");
-		if(request!=null) {
-			if(logger.isDebugEnabled()) {
+		if(request!=null && logger.isDebugEnabled()) {
 			logger.debug("FundTransferRequest object is :: "+request.toString());
-			}
 		}
 		return retailBankService.fundTransfer(request);
 	}
