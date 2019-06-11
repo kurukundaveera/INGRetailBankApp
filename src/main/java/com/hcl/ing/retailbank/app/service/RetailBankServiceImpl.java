@@ -30,41 +30,41 @@ public class RetailBankServiceImpl implements RetailBankService {
 
 	private static final Logger logger = LogManager.getLogger(RetailBankServiceImpl.class);
 
-	
-	private static final String SUCCESS="SUCCESS";
-	
-	private static final String FAILURE="FAILURE";
-	
+	private static final String SUCCESS = "SUCCESS";
+
+	private static final String FAILURE = "FAILURE";
+
 	@Autowired
 	private AccountSummaryRepository accountSummaryRepository;
-	
+
 	@Autowired
 	private TransactionHistoryRepository transactionHistoryRepository;
-	
-	
-	
+
 	public TransactionResponse viewLastTenTransactionDetails(Long accountNumber) {
 		logger.info("Entering into viewLastTenTransactionDetails() in TransactionHistoryRepository...");
-		TransactionResponse response=new TransactionResponse();
-		List<TransactionHistory> list=null;
+		TransactionResponse response = new TransactionResponse();
+		List<TransactionHistory> list = null;
 		try {
-			
-			list=transactionHistoryRepository.findAll(accountNumber);
-			if(list!=null && !list.isEmpty()) {
-			response.setMessage("SUCCESS");
-			response.setStatusCode(200);
-			response.setList(list);
-		}
-		else {
-			response.setMessage("FAILURE: Account number "+accountNumber+" Not Found");
+
+			list = transactionHistoryRepository.findAll(accountNumber);
+			if (list != null && !list.isEmpty()) {
+				response.setMessage(SUCCESS);
+				response.setStatusCode(200);
+				response.setList(list);
+			} else {
+				response.setMessage("FAILURE: Account number " + accountNumber + " Not Found");
+				response.setStatusCode(404);
+			}
+
+		} catch (Exception e) {
+
+			response.setMessage(e.getMessage());
 			response.setStatusCode(404);
+			logger.error(e.getClass().getName() + " view transastion details " + e.getMessage());
 		}
-	
-}
-	catch(Exception e) {
-	}
 		return response;
 	}
+
 	/*
 	 * Transfer funds from one account to another account
 	 */
@@ -129,18 +129,21 @@ public class RetailBankServiceImpl implements RetailBankService {
 									throw new InSufficientFundsException(
 											"Sorry, Insufficient funds in your account ...!");
 								}
+					
 							} else {
-								throw new RetailBankServiceException("Destination account is not found ...!");
+								throw new InSufficientFundsException("Sorry, Insufficient funds in your account ...!");
 							}
 						} else {
-							throw new RetailBankServiceException("Source account is not found ...!");
+							throw new RetailBankServiceException("Destination account is not found ...!");
 						}
 					} else {
-						throw new RetailBankServiceException("Destination account should not be source account number ...!");
+						throw new RetailBankServiceException("Source account is not found ...!");
 					}
-				
-				}// if
+				} else {
+					throw new RetailBankServiceException("Source account is null");
+				}
 
+			
 			} // if
 			else {
 				logger.error("FundTransferRequest is null ...!");
@@ -156,37 +159,35 @@ public class RetailBankServiceImpl implements RetailBankService {
 
 		return ResponseEntity.status(HttpStatus.CREATED).body(response);
 	}
-	
-	
-	//account summary details for a given account number
-	//author ismail
-	
-	
+
+	// account summary details for a given account number
+	// author ismail
+
 	@Override
 	public ResponseEntity<AccountSummaryResponse> accountSummary(Long acccountNumber) {
 		AccountSummaryResponse accountSummaryResponse = new AccountSummaryResponse();
 
 		try {
-			//hitting the database and getting details from repository
-			
+			// hitting the database and getting details from repository
+
 			Optional<AccountSummary> accountSummaryOp = accountSummaryRepository.findById(acccountNumber);
-			if(accountSummaryOp.isPresent()) {
+			if (accountSummaryOp.isPresent()) {
 				AccountSummary accountSummary = accountSummaryOp.get();
-				if(accountSummary!=null) {
+				if (accountSummary != null) {
 					accountSummaryResponse.setAccountType(accountSummary.getAccountType());
 					accountSummaryResponse.setClosingBalance(accountSummary.getClosingBalance());
 					accountSummaryResponse.setCreateDt(accountSummary.getCreateDt());
 					accountSummaryResponse.setAccountNo(accountSummary.getAccountNo());
 					accountSummaryResponse.setMeassage("please find account details");
 					return ResponseEntity.status(200).body(accountSummaryResponse);
-				}else {
+				} else {
 					throw new RetailBankServiceException("Account is not exist");
 				}
-				
-			}else {
+
+			} else {
 				throw new RetailBankServiceException("Account is not exist");
 			}
-			
+
 		} catch (Exception e) {
 			logger.error(e.getMessage());
 			accountSummaryResponse.setMeassage("sorry something went wrong with accountSummary Details");
