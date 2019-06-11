@@ -135,14 +135,24 @@ public class RetailBankServiceImpl implements RetailBankService {
 		try {
 			//hitting the database and getting details from repository
 			
-			Optional<AccountSummary> accountSummaryOp = accountSummaryRepository.findById(11L);
-			AccountSummary accountSummary = accountSummaryOp.get();
-			accountSummaryResponse.setAccountType(accountSummary.getAccountType());
-			accountSummaryResponse.setClosingBalance(accountSummary.getClosingBalance());
-			accountSummaryResponse.setCreateDt(accountSummary.getCreateDt());
-			accountSummaryResponse.setAccountNo(accountSummary.getAccountNo());
-			accountSummaryResponse.setMeassage("please find account details");
-			return ResponseEntity.status(200).body(accountSummaryResponse);
+			Optional<AccountSummary> accountSummaryOp = accountSummaryRepository.findById(acccountNumber);
+			if(accountSummaryOp.isPresent()) {
+				AccountSummary accountSummary = accountSummaryOp.get();
+				if(accountSummary!=null) {
+					accountSummaryResponse.setAccountType(accountSummary.getAccountType());
+					accountSummaryResponse.setClosingBalance(accountSummary.getClosingBalance());
+					accountSummaryResponse.setCreateDt(accountSummary.getCreateDt());
+					accountSummaryResponse.setAccountNo(accountSummary.getAccountNo());
+					accountSummaryResponse.setMeassage("please find account details");
+					return ResponseEntity.status(200).body(accountSummaryResponse);
+				}else {
+					throw new RetailBankServiceException("Account is not exist");
+				}
+				
+			}else {
+				throw new RetailBankServiceException("Account is not exist");
+			}
+			
 		} catch (Exception e) {
 			logger.error(e.getMessage());
 			accountSummaryResponse.setMeassage("sorry something went wrong with accountSummary Details");
