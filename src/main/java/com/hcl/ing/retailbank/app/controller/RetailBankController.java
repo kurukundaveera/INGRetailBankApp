@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hcl.ing.retailbank.app.dto.AccountSummaryResponse;
@@ -19,6 +20,7 @@ import com.hcl.ing.retailbank.app.dto.FundTransferRequest;
 import com.hcl.ing.retailbank.app.dto.FundTransferResponse;
 import com.hcl.ing.retailbank.app.dto.LoginRequest;
 import com.hcl.ing.retailbank.app.dto.LoginResponse;
+import com.hcl.ing.retailbank.app.dto.TransactionDetailsResponse;
 import com.hcl.ing.retailbank.app.dto.TransactionResponse;
 import com.hcl.ing.retailbank.app.service.LoginService;
 import com.hcl.ing.retailbank.app.service.RetailBankService;
@@ -74,6 +76,15 @@ public class RetailBankController {
 		logger.info("Enter into login controller");
 		return loginService.login(request);
 		
+	}
+	
+	@GetMapping("/transactionDetails")
+	public ResponseEntity<TransactionDetailsResponse> transactionDetails(@RequestParam("transactionId") Long transactionId){
+		logger.info(this.getClass().getName()+" transactionDetails is calling ...!");
+		if(transactionId!=null && logger.isDebugEnabled()) {
+			logger.debug("transactionId is :: "+transactionId);
+		}
+		return retailBankService.findTransactionById(transactionId);
 	}
 	
 
