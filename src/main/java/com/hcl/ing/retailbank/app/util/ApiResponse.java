@@ -16,6 +16,7 @@ public class ApiResponse implements Serializable {
 	private Integer statusCode;
 	
 	private String status;
+	private String message;
 	
 	public ApiResponse() {
 		super();
