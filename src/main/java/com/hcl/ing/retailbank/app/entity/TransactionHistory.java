@@ -1,6 +1,7 @@
 package com.hcl.ing.retailbank.app.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,6 +9,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import lombok.Data;
 import lombok.Getter;
@@ -39,6 +42,10 @@ public class TransactionHistory implements Serializable {
 	
 	@Column(name="CLOSING_BALANCE")
 	private Double closingBalance;
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name="CREATE_DT",columnDefinition = "DATETIME")
+	private Date createDt;
 	
 	
 	public TransactionHistory() {
