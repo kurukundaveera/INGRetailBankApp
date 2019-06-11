@@ -8,13 +8,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.hcl.ing.retailbank.app.controller.RetailBankController;
+import com.hcl.ing.retailbank.app.dto.LoginRequest;
+import com.hcl.ing.retailbank.app.dto.LoginResponse;
 import com.hcl.ing.retailbank.app.entity.AccountSummary;
 import com.hcl.ing.retailbank.app.entity.User;
 import com.hcl.ing.retailbank.app.repository.AccountSummaryRepository;
 import com.hcl.ing.retailbank.app.repository.UserRepository;
 import com.hcl.ing.retailbank.app.util.RetailBankServiceException;
-import com.hvl.ing.retailbank.app.dto.LoginRequest;
-import com.hvl.ing.retailbank.app.dto.LoginResponse;
 
 @Service
 public class LoginServiceImpl implements LoginService {
@@ -58,8 +58,9 @@ public class LoginServiceImpl implements LoginService {
 				}
 
 				if (user.isPresent()) {
+					User user1=user.get();
 
-					AccountSummary accountSummary = accountSummaryRepository.findByUserId(user.get().getUserId());
+					AccountSummary accountSummary = accountSummaryRepository.findByUserId(user1.getUserId());
 
 					response.setMessage("Login successfull");
 					response.setStatus(SUCCESS);
