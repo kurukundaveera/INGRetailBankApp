@@ -22,6 +22,8 @@ public class TransactionDetails  implements Serializable {
 	
 	private Date createDt;
 	
+	private Double amount;
+	
 	public TransactionDetails() {
 		super();
 	}
@@ -80,6 +82,14 @@ public class TransactionDetails  implements Serializable {
 
 	public void setCreateDt(Date createDt) {
 		this.createDt = createDt;
+	}
+
+	public Double getAmount() {
+		return amount;
+	}
+
+	public void setAmount(Double amount) {
+		this.amount = amount;
 	}
 	
 	

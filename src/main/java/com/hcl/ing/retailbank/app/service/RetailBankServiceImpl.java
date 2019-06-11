@@ -123,7 +123,7 @@ public class RetailBankServiceImpl implements RetailBankService {
 									response = new FundTransferResponse();
 									response.setStatusCode(200);
 									response.setStatus(SUCCESS);
-									response.setMessage("Your funds "+request.getAmount()+" transferred successfully ...!");
+									response.setMessage("Your funds "+request.getAmount()+" transferred successfully ...! Closing balance is :"+fromBalance);
 
 								} else {
 									throw new InSufficientFundsException(
@@ -214,7 +214,7 @@ public class RetailBankServiceImpl implements RetailBankService {
 					details.setClosingBalance(transaction.getClosingBalance());
 					details.setComments(transaction.getComments());
 					details.setCreateDt(transaction.getCreateDt());
-					
+					details.setAmount(transaction.getAmount());
 					response=new TransactionDetailsResponse();
 					response.setTransactionDetails(details);
 					response.setStatusCode(200);
