@@ -105,9 +105,6 @@ public class TransactionHistory implements Serializable {
 		this.createDt = createDt;
 	}
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
 
 	public TransactionHistory() {
 		super();
