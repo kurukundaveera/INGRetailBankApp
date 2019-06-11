@@ -8,7 +8,6 @@ import com.hcl.ing.retailbank.app.entity.TransactionHistory;
 @Repository
 public interface TransactionHistoryRepository extends JpaRepository<TransactionHistory, Long> {
 	
-	public TransactionHistory findByTempPayeeId(Long tempPayeeId);
 	
 	
 	
