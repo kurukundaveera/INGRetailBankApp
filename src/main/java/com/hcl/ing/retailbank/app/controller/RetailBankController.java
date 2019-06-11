@@ -19,14 +19,16 @@ import com.hcl.ing.retailbank.app.dto.FundTransferRequest;
 import com.hcl.ing.retailbank.app.dto.FundTransferResponse;
 import com.hcl.ing.retailbank.app.dto.LoginRequest;
 import com.hcl.ing.retailbank.app.dto.LoginResponse;
+import com.hcl.ing.retailbank.app.dto.TransactionResponse;
 import com.hcl.ing.retailbank.app.service.LoginService;
 import com.hcl.ing.retailbank.app.service.RetailBankService;
 
 import io.swagger.annotations.ApiOperation;
 
+
 @RestController
+@CrossOrigin("*")
 @RequestMapping("/retailbank")
-@CrossOrigin(origins="*")
 public class RetailBankController {
 	
 	private static final Logger logger=LogManager.getLogger(RetailBankController.class);
@@ -36,6 +38,18 @@ public class RetailBankController {
 	
 	@Autowired
 	private LoginService loginService;	
+	
+
+	
+	@GetMapping("/viewLastTenTransaction/{accountNumber}")
+	public TransactionResponse viewLastTenTransactionDetails(@PathVariable Long accountNumber) {
+		logger.info("Entering into viewLastTenTransactionDetails() in RetailBankController");
+		return retailBankService.viewLastTenTransactionDetails(accountNumber);
+	}
+
+
+
+	
 	
 	@PostMapping("/fundTransfer")
 	@ApiOperation("Transfer funds from one account to another account")
@@ -50,8 +64,8 @@ public class RetailBankController {
 	@GetMapping ("/accountSummary/{acccountNumber}")
 	public ResponseEntity<AccountSummaryResponse>  accountSummary(@PathVariable("acccountNumber") Long acccountNumber)
 	{
-		ResponseEntity<AccountSummaryResponse> accountSummaryResponse=retailBankService.accountSummary(acccountNumber);
-		return accountSummaryResponse;
+		return retailBankService.accountSummary(acccountNumber);
+		
 		
 	}	
 	@PostMapping("/login")

@@ -1,6 +1,7 @@
 package com.hcl.ing.retailbank.app.service;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 import org.apache.logging.log4j.LogManager;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 import com.hcl.ing.retailbank.app.dto.AccountSummaryResponse;
 import com.hcl.ing.retailbank.app.dto.FundTransferRequest;
 import com.hcl.ing.retailbank.app.dto.FundTransferResponse;
+import com.hcl.ing.retailbank.app.dto.TransactionResponse;
 import com.hcl.ing.retailbank.app.entity.AccountSummary;
 import com.hcl.ing.retailbank.app.entity.TransactionHistory;
 import com.hcl.ing.retailbank.app.repository.AccountSummaryRepository;
@@ -38,6 +40,29 @@ public class RetailBankServiceImpl implements RetailBankService {
 	private TransactionHistoryRepository transactionHistoryRepository;
 	
 	
+	
+	public TransactionResponse viewLastTenTransactionDetails(Long accountNumber) {
+		logger.info("Entering into viewLastTenTransactionDetails() in TransactionHistoryRepository...");
+		TransactionResponse response=new TransactionResponse();
+		List<TransactionHistory> list=null;
+		try {
+			
+			list=transactionHistoryRepository.findAll(accountNumber);
+			if(list!=null && !list.isEmpty()) {
+			response.setMessage("SUCCESS");
+			response.setStatusCode(200);
+			response.setList(list);
+		}
+		else {
+			response.setMessage("FAILURE: Account number "+accountNumber+" Not Found");
+			response.setStatusCode(404);
+		}
+	
+}
+	catch(Exception e) {
+	}
+		return response;
+	}
 	/*
 	 * Transfer funds from one account to another account
 	 */
