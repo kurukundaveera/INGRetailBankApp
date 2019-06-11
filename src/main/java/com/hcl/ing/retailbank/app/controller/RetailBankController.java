@@ -9,13 +9,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.hcl.ing.retailbank.app.dto.LoginRequest;
+import com.hcl.ing.retailbank.app.dto.LoginResponse;
 import com.hcl.ing.retailbank.app.service.LoginService;
-import com.hvl.ing.retailbank.app.dto.LoginRequest;
-import com.hvl.ing.retailbank.app.dto.LoginResponse;
 
 @RestController
 @RequestMapping("/retailbank")
-@CrossOrigin
+@CrossOrigin(origins="*")
 public class RetailBankController {
 	
 	@Autowired

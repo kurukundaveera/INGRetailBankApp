@@ -1,4 +1,4 @@
-package com.hvl.ing.retailbank.app.dto;
+package com.hcl.ing.retailbank.app.dto;
 
 import java.io.Serializable;
 
