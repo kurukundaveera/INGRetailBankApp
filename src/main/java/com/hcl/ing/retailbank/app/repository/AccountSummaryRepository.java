@@ -8,6 +8,10 @@ import com.hcl.ing.retailbank.app.entity.AccountSummary;
 @Repository
 public interface AccountSummaryRepository extends JpaRepository<AccountSummary, Long> {
 	
+	public AccountSummary findByAccountNo(Long accountNo);
+
+	public AccountSummary  findByUserId(Long userId);
+	
 	
 	
 
