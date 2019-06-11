@@ -112,11 +112,5 @@ public class AccountSummary implements Serializable {
 		super();
 	}
 
-	@Override
-	public String toString() {
-		return "AccountSummary [accountNo=" + accountNo + ", accountType=" + accountType + ", accountName="
-				+ accountName + ", address=" + address + ", email=" + email + ", closingBalance=" + closingBalance
-				+ ", createDt=" + createDt + ", userId=" + userId + "]";
-	}
 
 }

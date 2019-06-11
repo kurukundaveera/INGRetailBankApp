@@ -54,9 +54,4 @@ public class User implements Serializable {
 		super();
 	}
 
-	@Override
-	public String toString() {
-		return "User [userId=" + userId + ", userName=" + userName + ", password=" + password + "]";
-	}
-
 }
